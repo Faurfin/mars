@@ -1,4 +1,6 @@
-from flask import Flask, send_file, url_for, request, redirect
+import os
+from flask import Flask, send_file, url_for, request
+
 app = Flask(__name__)
 
 
@@ -259,6 +261,58 @@ def results(nickname, level, rating):
       <div class="alert alert-warning" role="alert">
         <h3>Желаем удачи!</h3>
       </div>
+    </div>
+  </body>
+</html>'''
+
+
+@app.route('/load_photo', methods=['POST', 'GET'])
+def load_photo():
+    upload_folder = 'static/img'
+
+    if not os.path.exists(upload_folder):
+        os.makedirs(upload_folder)
+
+    file_path = os.path.join(upload_folder, 'uploaded_photo.png')
+
+    if request.method == 'POST':
+        f = request.files.get('file')
+        if f:
+            f.save(file_path)
+
+    img_tag = ""
+    if os.path.exists(file_path):
+        img_tag = f'<img src="{url_for("static", filename="img/uploaded_photo.png")}" class="img-fluid mt-3" alt="Фотография">'
+
+    return f'''<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}" />
+    <title>Отбор астронавтов</title>
+  </head>
+  <body>
+    <h2 class="text-center mt-3">Загрузка фотографии</h2>
+    <h4 class="text-center">для участия в миссии</h4>
+
+    <div class="container mt-4" style="max-width: 500px; background-color: #fcdcb6; padding: 20px; border-radius: 5px; border: 1px solid #e0c2a0;">
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label d-block">Приложите фотографию</label>
+                <input type="file" class="form-control-file" name="file">
+            </div>
+
+            {img_tag}
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </div>
+        </form>
     </div>
   </body>
 </html>'''
