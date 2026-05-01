@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="mt-4" style="margin-left: 40px;">
+        <p class="fs-5">Фамилия: {{ surname }}</p>
+        <p class="fs-5">Имя: {{ name }}</p>
+        <p class="fs-5">Образование: {{ education }}</p>
+        <p class="fs-5">Профессия: {{ profession }}</p>
+        <p class="fs-5">Пол: {{ sex }}</p>
+        <p class="fs-5">Мотивация: {{ motivation }}</p>
+        <p class="fs-5">Готовы остаться на Марсе? {{ ready }}</p>
+    </div>
+{% endblock %}
