@@ -318,5 +318,51 @@ def load_photo():
 </html>'''
 
 
+@app.route('/carousel')
+def carousel():
+    return f'''<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Пейзажи Марса</title>
+  </head>
+  <body>
+    <div class="container mt-5" style="max-width: 800px;">
+        <h1 class="text-center mb-4">Пейзажи Марса</h1>
+
+        <div id="marsCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+
+            <div class="carousel-item active">
+              <img src="{url_for('static', filename='img/mars1.jpg')}" class="d-block w-100" alt="Марс 1">
+            </div>
+
+            <div class="carousel-item">
+              <img src="{url_for('static', filename='img/mars2.jpg')}" class="d-block w-100" alt="Марс 2">
+            </div>
+
+            <div class="carousel-item">
+              <img src="{url_for('static', filename='img/mars3.jpg')}" class="d-block w-100" alt="Марс 3">
+            </div>
+
+          </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#marsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Предыдущий</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#marsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Следующий</span>
+          </button>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>'''
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
