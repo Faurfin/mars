@@ -1,5 +1,4 @@
-from flask import Flask, send_file, url_for
-
+from flask import Flask, send_file, url_for, request, redirect
 app = Flask(__name__)
 
 
@@ -24,7 +23,6 @@ def promotion():
 
 @app.route('/image_mars')
 def image_mars():
-    # Теперь в src мы просто указываем путь /images.png
     return """<!doctype html>
 <html lang="ru">
   <head>
@@ -38,10 +36,10 @@ def image_mars():
   </body>
 </html>"""
 
+
 @app.route('/images.png')
 def get_image():
     return send_file('static/img/images.png')
-
 
 
 @app.route('/promotion_image')
@@ -86,6 +84,11 @@ def promotion_image():
 
 @app.route('/astronaut_selection', methods=['POST', 'GET'])
 def astronaut_selection():
+    if request.method == 'POST':
+        nickname = request.form.get('name', 'Незнакомец')
+
+        return redirect(f'/results/{nickname}/1/99.9')
+
     return f'''<!doctype html>
 <html lang="ru">
   <head>
@@ -101,7 +104,7 @@ def astronaut_selection():
     <h2 class="text-center mt-3">Анкета претендента</h2>
     <h4 class="text-center">на участие в миссии</h4>
     <div class="container mt-4" style="max-width: 500px; background-color: #fcdcb6; padding: 20px; border-radius: 5px; border: 1px solid #e0c2a0;">
-        <form>
+        <form method="post">
             <div class="mb-3">
                 <input type="text" class="form-control" placeholder="Введите фамилию" name="surname">
             </div>
@@ -186,6 +189,76 @@ def astronaut_selection():
 
             <button type="submit" class="btn btn-primary">Отправить</button>
         </form>
+    </div>
+  </body>
+</html>'''
+
+
+@app.route('/choice/<planet_name>')
+def choice(planet_name):
+    return f'''<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          crossorigin="anonymous">
+    <title>Варианты выбора</title>
+  </head>
+  <body>
+    <div class="container mt-3">
+      <h1>Мое предложение: {planet_name}</h1>
+      <h2>Эта планета близка к Земле;</h2>
+
+      <div class="alert alert-success" role="alert">
+        <h3>На ней много необходимых ресурсов;</h3>
+      </div>
+
+      <div class="alert alert-secondary" role="alert">
+        <h4>На ней есть вода и атмосфера;</h4>
+      </div>
+
+      <div class="alert alert-warning" role="alert">
+        <h5>На ней есть небольшое магнитное поле;</h5>
+      </div>
+
+      <div class="alert alert-danger" role="alert">
+        <h6>Наконец, она просто красива!</h6>
+      </div>
+    </div>
+  </body>
+</html>'''
+
+
+@app.route('/results/<nickname>/<int:level>/<float:rating>')
+def results(nickname, level, rating):
+    return f'''<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          crossorigin="anonymous">
+    <title>Результаты</title>
+  </head>
+  <body>
+    <div class="container mt-3">
+      <h1>Результаты отбора</h1>
+      <h2>Претендента на участие в миссии {nickname}:</h2>
+
+      <div class="alert alert-success" role="alert">
+        <h4>Поздравляем! Ваш рейтинг после {level} этапа отбора</h4>
+      </div>
+
+      <h3>составляет {rating}!</h3>
+
+      <div class="alert alert-warning" role="alert">
+        <h3>Желаем удачи!</h3>
+      </div>
     </div>
   </body>
 </html>'''
