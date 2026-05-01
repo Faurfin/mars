@@ -1,12 +1,16 @@
 import os
 from flask import Flask, send_file, url_for, request, redirect, render_template
+
 app = Flask(__name__)
+
 
 @app.route('/')
 @app.route('/index')
 @app.route('/index/<title>')
 def index(title="Заготовка"):
     return render_template('base.html', title=title)
+
+
 @app.route('/')
 def mission():
     return "Миссия Колонизация Марса"
@@ -367,5 +371,12 @@ def carousel():
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>'''
+
+
+    @app.route('/training/<prof>')
+def training(prof):
+    return render_template('training.html', prof=prof.lower(), title='Тренировки')
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
