@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask, send_file, url_for, request, redirect, render_template
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
@@ -478,6 +479,14 @@ def galery():
     images = os.listdir(galery_dir)
 
     return render_template('galery.html', title='Красная планета', images=images)
+
+
+@app.route('/member')
+def member():
+    with open('templates/crew.json', 'r', encoding='utf-8') as f:
+        crew = json.load(f)
+
+    return render_template('member.html', title='Член экипажа', crew=crew)
 
 
 if __name__ == '__main__':

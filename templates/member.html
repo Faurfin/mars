@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% set person = crew | random %}
+    
+    <div class="mt-4 text-center">
+        <h2>{{ person.name }} {{ person.surname }}</h2>
+        
+        <img src="{{ url_for('static', filename=person.photo) }}" class="img-fluid mt-4 mb-4" alt="Фото астронавта" style="max-width: 300px;">
+        
+        <p class="fs-5">{{ person.specialties | sort | join(', ') }}</p>
+    </div>
+{% endblock %}

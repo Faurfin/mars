@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Энди",
+    "surname": "Уир",
+    "photo": "img/mars_child.png",
+    "specialties": ["специалист по радиационной защите", "астрогеолог"]
+  },
+  {
+    "name": "Марк",
+    "surname": "Уотни",
+    "photo": "img/mars_adult.png",
+    "specialties": ["экзобиолог", "инженер жизнеобеспечения", "ботаник"]
+  },
+  {
+    "name": "Ридли",
+    "surname": "Скотт",
+    "photo": "img/uploaded_photo.png",
+    "specialties": ["пилот", "капитан корабля", "инженер"]
+  }
+]
