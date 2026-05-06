@@ -1,7 +1,17 @@
 h1 {
-    color: red;
+    color: black;
 }
 h4 {
-    color: #b3b3b3; /* Светло-серый цвет */
-    padding-left: 20px; /* Внутренний отступ слева */
+    color: #b3b3b3;
+    padding-left: 20px;
+}
+.emblem-title {
+    background-image: url('../img/mars_logo.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: contain;
+    padding-left: 140px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
 }

@@ -1,9 +1,25 @@
 import os
 from flask import Flask, send_file, url_for, request, redirect, render_template
-
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
+class EmergencyForm(FlaskForm):
+    astronaut_id = StringField('Id астронавта', validators=[DataRequired()])
+    astronaut_pass = PasswordField('Пароль астронавта', validators=[DataRequired()])
+    captain_id = StringField('Id капитана', validators=[DataRequired()])
+    captain_pass = PasswordField('Пароль капитана', validators=[DataRequired()])
+    submit = SubmitField('Доступ')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = EmergencyForm()
+    if form.validate_on_submit():
+        return redirect('/')
+    return render_template('login.html', title='Аварийный доступ', form=form)
 @app.route('/')
 @app.route('/index')
 @app.route('/index/<title>')
@@ -425,5 +441,5 @@ def auto_answer():
 
 
 
-if __name__ == '__main__':  
+if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
