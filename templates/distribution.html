@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="mt-4 text-center">
+        <h2>Размещение по каютам</h2>
+        
+        <div class="mt-4" style="display: inline-block; text-align: left;">
+            {% set cabin = "Каюта №" %}
+            
+            {% for astronaut in astronauts %}
+                <p class="fs-5">
+                    {{ astronaut }} - {{ cabin }} {{ loop.index }}
+                    
+                    {% if loop.first %}
+                        - капитан корабля
+                    {% endif %}
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
