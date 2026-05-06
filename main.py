@@ -463,5 +463,22 @@ def table_param(sex, age):
     return render_template('table.html', title='Оформление', sex=sex, age=age)
 
 
+@app.route('/galery', methods=['GET', 'POST'])
+def galery():
+    galery_dir = os.path.join('static', 'img', 'galery')
+    if not os.path.exists(galery_dir):
+        os.makedirs(galery_dir)
+
+    if request.method == 'POST':
+        f = request.files.get('file')
+        if f and f.filename:
+            f.save(os.path.join(galery_dir, f.filename))
+            return redirect(url_for('galery'))
+
+    images = os.listdir(galery_dir)
+
+    return render_template('galery.html', title='Красная планета', images=images)
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
