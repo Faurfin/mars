@@ -457,5 +457,11 @@ def distribution():
     return render_template('distribution.html', title='Размещение', astronauts=astronauts)
 
 
+@app.route('/table/<sex>/<int:age>')
+@app.route('/table_param/<sex>/<int:age>')
+def table_param(sex, age):
+    return render_template('table.html', title='Оформление', sex=sex, age=age)
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)

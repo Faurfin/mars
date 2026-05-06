@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="mt-4 text-center">
+        <h2>Оформление каюты</h2>
+        
+        <table class="table table-bordered mt-3 mx-auto" style="max-width: 600px;">
+            <thead class="table-light">
+                <tr>
+                    <th>Цвет стен</th>
+                    <th>Эмблема</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% set bg_color = '#ffffff' %}
+                    {% if sex == 'female' %}
+                        {% if age < 21 %}
+                            {% set bg_color = '#f9b5a2' %} {% else %}
+                            {% set bg_color = '#ff4500' %} {% endif %}
+                    {% elif sex == 'male' %}
+                        {% if age < 21 %}
+                            {% set bg_color = '#b0c4de' %} {% else %}
+                            {% set bg_color = '#007bff' %} {% endif %}
+                    {% endif %}
+                    
+                    <td style="background-color: {{ bg_color }}; width: 50%;"></td>
+                    
+                    <td style="width: 50%;">
+                        {% if age < 21 %}
+                            <img src="{{ url_for('static', filename='img/mars_child.png') }}" class="img-fluid" alt="Марсианин-ребенок">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='img/mars_adult.png') }}" class="img-fluid" alt="Взрослый марсианин">
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
